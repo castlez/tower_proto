@@ -30,13 +30,14 @@ public class PlayerController : MonoBehaviour
     void Awake ()
     {
         controls = new PlayerxControl();
-        controls.Gameplay.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
+        // controls.Gameplay.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
+        controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
 
-        controls.Gameplay.Jump.performed += ctx => Jump(true, move);
-        controls.Gameplay.Jump.canceled += ctx => Jump(false, move);
+        controls.Gameplay.Jump.performed += ctx => jumping = true;;
+        controls.Gameplay.Jump.canceled += ctx => jumping=false;
         controls.Gameplay.Dash.performed += ctx => Dodge(true);
-        controls.Gameplay.Dash.performed += ctx => Dodge(false);
+        controls.Gameplay.Dash.canceled += ctx => Dodge(false);
     }
 
     void Start()
@@ -49,29 +50,24 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // Movement updates
+        Vector2 corrected = move * Time.deltaTime;
+
+        // jump check
+        if (!grounded)
+        {
+            jumping = false;
+        }
+        controller.Move(move.x, false, jumping);
+        anim.SetFloat("horizontalMove", Mathf.Abs(Input.GetAxis("Horizontal")));
+        jumping = false;
+
+        Debug.Log($"Grounded = {grounded}");
     }
 
     void FixedUpdate()
     {
         
-    }
-
-    void Move(Vector2 m)
-    {
-        Debug.Log($"move = {m.x}");
-        Vector2 corrected = m * Time.deltaTime;
-        // controller.Move(runSpeed + m.x * Time.fixedDeltaTime, false, jump);
-        controller.Move(m.x, false, jumping);
-        anim.SetFloat("horizontalMove", Mathf.Abs(Input.GetAxis("Horizontal")));
-    }
-
-    void Jump(bool jumping, Vector2 m)
-    {
-        this.jumping = jumping;
-        controller.Move(m.x, false, jumping);
-        anim.SetBool("grounded", grounded);
-
     }
 
     void Dodge(bool dashing)
