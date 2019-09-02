@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
         controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
 
         controls.Gameplay.Jump.performed += ctx => jumping = true;;
-        controls.Gameplay.Jump.canceled += ctx => jumping=false;
+        controls.Gameplay.Jump.canceled += ctx => jumping = false;
         controls.Gameplay.Dash.performed += ctx => Dodge(true);
         controls.Gameplay.Dash.canceled += ctx => Dodge(false);
     }
