@@ -61,8 +61,6 @@ public class PlayerController : MonoBehaviour
         controller.Move(move.x, false, jumping);
         anim.SetFloat("horizontalMove", Mathf.Abs(Input.GetAxis("Horizontal")));
         jumping = false;
-
-        Debug.Log($"Grounded = {grounded}");
     }
 
     void FixedUpdate()
@@ -72,7 +70,7 @@ public class PlayerController : MonoBehaviour
 
     void Dodge(bool dashing)
     {
-        Debug.Log("Dodged: NOT IMPLEMENTED");
+        Debug.Log($"Dodged: not done, state: {dashing}");
     }
 
     void OnEnable()
