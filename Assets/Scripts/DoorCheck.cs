@@ -25,6 +25,10 @@ public class DoorCheck : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D col)
     {
+        if(coins_left == null)
+        {
+            Debug.Log("Coins left is null");
+        }
         if (coins_left == 0)
         {
             Debug.Log("Entered Door");
