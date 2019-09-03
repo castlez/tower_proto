@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public float runSpeed = 0.0008f;
 
     public bool grounded=true;
+    public bool last_grounded = true;
 
     bool jumping = false;
 
@@ -27,15 +28,16 @@ public class PlayerController : MonoBehaviour
 
     Vector2 move;
 
+    public int scene = 0;
+
     void Awake ()
     {
         controls = new PlayerxControl();
-        // controls.Gameplay.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
         controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
 
         controls.Gameplay.Jump.performed += ctx => jumping = true;;
-        controls.Gameplay.Jump.canceled += ctx => jumping=false;
+        controls.Gameplay.Jump.canceled += ctx => jumping = false;
         controls.Gameplay.Dash.performed += ctx => Dodge(true);
         controls.Gameplay.Dash.canceled += ctx => Dodge(false);
     }
@@ -50,6 +52,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // set grounded
+        anim.SetBool("grounded", grounded);
+
         // Movement updates
         Vector2 corrected = move * Time.deltaTime;
 
@@ -58,21 +63,24 @@ public class PlayerController : MonoBehaviour
         {
             jumping = false;
         }
+
+        // move the character
         controller.Move(move.x, false, jumping);
         anim.SetFloat("horizontalMove", Mathf.Abs(Input.GetAxis("Horizontal")));
-        jumping = false;
-
-        Debug.Log($"Grounded = {grounded}");
     }
 
     void FixedUpdate()
     {
+        if(last_grounded != grounded){
+            Debug.Log($"Grounded = {grounded}");
+            last_grounded = grounded;
+        }    
         
     }
 
     void Dodge(bool dashing)
     {
-        Debug.Log("Dodged: NOT IMPLEMENTED");
+        Debug.Log($"Dodged: not done, state: {dashing}");
     }
 
     void OnEnable()
