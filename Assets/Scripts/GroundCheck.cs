@@ -7,11 +7,11 @@ public class GroundCheck : MonoBehaviour
     private GameObject player;
     private PlayerController pc;
     private Animator anim;
+
     // Start is called before the first frame update
     void Start()
     {
-
-        player = GameObject.Find("guy");
+        player = transform.parent.gameObject;
         pc = player.GetComponentInParent<PlayerController>();
         anim = player.GetComponent<Animator>();
     }
