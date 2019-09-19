@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
 
     bool jumping = false;
 
+    float jumpSpeed = 40f;
+
     bool dodging = false;
 
     public float dodgeSpeed;
@@ -29,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
 
-    private Animator anim;
+    public Animator anim;
 
     float lastx=1;
 
@@ -68,10 +70,12 @@ public class PlayerController : MonoBehaviour
         // jump check
         if (Input.GetAxis("Jump_" + player_number)==1)
         {
+            anim.Play("inAir");
             jumping = true;
         }
         if (!grounded)
         {
+            anim.Play("inAir");
             jumping = false;
         }
 
@@ -88,13 +92,15 @@ public class PlayerController : MonoBehaviour
                 dodgeTime = startDodgeTime;
                 Vector2 d = new Vector2(lastx, 0);
                 rb.AddForce(d * dodgeSpeed);
+                anim.Play("dash");
             }
         }
         else if (Input.GetAxis("Dodge_" + player_number)==0)
         {
             dodging = false;
+            anim.Play("walk");
         }
-        
+
         // move the character
         float movex = Input.GetAxis("Horiz_" + player_number) * runSpeed * Time.deltaTime;
         if(movex != 0)

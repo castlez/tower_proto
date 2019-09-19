@@ -19,6 +19,7 @@ public class GroundCheck : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D col)
     {
         pc.grounded = true;
+        pc.anim.Play("stand");
         //pc.controller.m_GroundCheck = true;
         //pc.controller.grounded = true;
     }
