@@ -31,7 +31,9 @@ public class PlayerController : MonoBehaviour
 
     private Animator anim;
 
-    public float movex = 0;
+    float lastx=1;
+
+    float lasty=1;
 
     public int scene = 0;
 
@@ -74,21 +76,34 @@ public class PlayerController : MonoBehaviour
         }
 
         // dash check
-        if (Input.GetAxis("Dodge_" + player_number)==1)
+        if(dodgeTime>0)
         {
-            Debug.Log("Dodging!" + Input.GetAxis("Dodge_" + player_number));
-            dodgeTime = startDodgeTime;
-            float x = Input.GetAxis("Horiz_" + player_number);
-            float y = Input.GetAxis("Vert_" + player_number);
-            Vector2 d = new Vector2(x, y);
-            rb.velocity = d * dodgeSpeed;
+            dodgeTime -= Time.deltaTime;
         }
-        else{
-            // move the character
-            movex = Input.GetAxis("Horiz_" + player_number) * runSpeed * Time.deltaTime;
-            controller.Move(movex, false, jumping);
-            anim.SetFloat("horizontalMove", Mathf.Abs(movex));
+        if (!dodging & Input.GetAxis("Dodge_" + player_number)==1)
+        {
+            dodging = true;
+            if(dodgeTime<=0)
+            {
+                dodgeTime = startDodgeTime;
+                Vector2 d = new Vector2(lastx, 0);
+                rb.AddForce(d * dodgeSpeed);
+            }
         }
+        else if (Input.GetAxis("Dodge_" + player_number)==0)
+        {
+            dodging = false;
+        }
+        
+        // move the character
+        float movex = Input.GetAxis("Horiz_" + player_number) * runSpeed * Time.deltaTime;
+        if(movex != 0)
+        lastx = movex;
+        float movey = Input.GetAxis("Vert_" + player_number) * runSpeed * Time.deltaTime;
+        if(movey != 0)
+        lasty = movey;
+        controller.Move(movex, false, jumping);
+        anim.SetFloat("horizontalMove", Mathf.Abs(movex));
     }
 
     void FixedUpdate()
