@@ -23,6 +23,10 @@ public class PlayerController : MonoBehaviour
 
     bool dodging = false;
 
+    public float dodgeSpeed;
+    public float startDodgeTime;
+    float dodgeTime=0;
+
     private Rigidbody2D rb;
 
     private Animator anim;
@@ -40,7 +44,7 @@ public class PlayerController : MonoBehaviour
         // var State = Activator.CreateInstance(t);
 
 
-        if(PlayerState.state[player_number].active)
+        if(PlayerState.player[player_number].active)
         {
             Debug.Log($"Player {player_number} is active!");
         }
@@ -60,8 +64,6 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("grounded", grounded);
 
         // jump check
-
-        float i = Input.GetAxis("Jump_" + player_number);
         if (Input.GetAxis("Jump_" + player_number)==1)
         {
             jumping = true;
@@ -71,11 +73,22 @@ public class PlayerController : MonoBehaviour
             jumping = false;
         }
 
-
-        // move the character
-        movex = Input.GetAxis("Horiz_" + player_number) * runSpeed * Time.deltaTime;
-        controller.Move(movex, false, jumping);
-        anim.SetFloat("horizontalMove", Mathf.Abs(movex));
+        // dash check
+        if (Input.GetAxis("Dodge_" + player_number)==1)
+        {
+            Debug.Log("Dodging!" + Input.GetAxis("Dodge_" + player_number));
+            dodgeTime = startDodgeTime;
+            float x = Input.GetAxis("Horiz_" + player_number);
+            float y = Input.GetAxis("Vert_" + player_number);
+            Vector2 d = new Vector2(x, y);
+            rb.velocity = d * dodgeSpeed;
+        }
+        else{
+            // move the character
+            movex = Input.GetAxis("Horiz_" + player_number) * runSpeed * Time.deltaTime;
+            controller.Move(movex, false, jumping);
+            anim.SetFloat("horizontalMove", Mathf.Abs(movex));
+        }
     }
 
     void FixedUpdate()
@@ -84,11 +97,6 @@ public class PlayerController : MonoBehaviour
             last_grounded = grounded;
         }    
         
-    }
-
-    void Dodge(bool dashing)
-    {
-        Debug.Log($"Dodged: not done, state: {dashing}");
     }
 
     void OnEnable()
