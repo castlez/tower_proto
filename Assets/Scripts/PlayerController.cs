@@ -40,6 +40,28 @@ public class PlayerController : MonoBehaviour
     public int scene = 0;
 
     public int player_number = 1;
+
+    void PlayerInit()
+    {
+        // player init
+        if(PlayerState.player[player_number].dodgeSpeed == 0)
+        {
+            PlayerState.player[player_number].dodgeSpeed = dodgeSpeed;
+        }
+        else
+        {
+            dodgeSpeed = PlayerState.player[player_number].dodgeSpeed;
+        }
+
+        if(PlayerState.player[player_number].startDodgeTime == 0)
+        {
+            PlayerState.player[player_number].startDodgeTime = startDodgeTime;
+        }
+        else
+        {
+            startDodgeTime = PlayerState.player[player_number].startDodgeTime;
+        }
+    }
     
     void Awake ()
     {
@@ -59,6 +81,8 @@ public class PlayerController : MonoBehaviour
         player = GameObject.Find("guy" + player_number);
         rb = player.GetComponent<Rigidbody2D>();
         anim = player.GetComponent<Animator>();
+
+        PlayerInit(); 
     }
 
     // Update is called once per frame

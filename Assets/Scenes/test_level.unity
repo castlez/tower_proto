@@ -698,7 +698,9 @@ MonoBehaviour:
   runSpeed: 85.4
   grounded: 0
   last_grounded: 1
-  movex: 0
+  dodgeSpeed: 0
+  startDodgeTime: 0
+  anim: {fileID: 0}
   scene: 0
   player_number: 2
 --- !u!114 &551857512
@@ -1127,7 +1129,9 @@ MonoBehaviour:
   runSpeed: 85.4
   grounded: 0
   last_grounded: 1
-  movex: 0
+  dodgeSpeed: 0
+  startDodgeTime: 0
+  anim: {fileID: 0}
   scene: 0
   player_number: 1
 --- !u!114 &623798243
@@ -1546,7 +1550,9 @@ MonoBehaviour:
   runSpeed: 85.4
   grounded: 0
   last_grounded: 1
-  movex: 0
+  dodgeSpeed: 0
+  startDodgeTime: 0
+  anim: {fileID: 0}
   scene: 0
   player_number: 4
 --- !u!114 &1249559583
@@ -1768,7 +1774,9 @@ MonoBehaviour:
   runSpeed: 85.4
   grounded: 0
   last_grounded: 1
-  movex: 0
+  dodgeSpeed: 0
+  startDodgeTime: 0
+  anim: {fileID: 0}
   scene: 0
   player_number: 3
 --- !u!114 &1482551926
