@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
         // var State = Activator.CreateInstance(t);
 
 
-        if(PlayerState1.active)
+        if(PlayerState.state[player_number].active)
         {
             Debug.Log($"Player {player_number} is active!");
         }
