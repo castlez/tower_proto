@@ -5,38 +5,42 @@ using UnityEngine.SceneManagement;
 
 public class DoorCheck : MonoBehaviour
 {
-    public test_level level;
+    public Level level;
     public GameObject scene_object;
 
-    public int coins_left;
+    public bool condition_met;
+
+    public string next_screen;
 
     // Start is called before the first frame update
     void Start()
     {
-        scene_object = GameObject.Find("test_level");
-        level = scene_object.GetComponent<test_level>();
+        //scene_object = GameObject.Find(next_screen);
+        scene_object = transform.parent.gameObject;
+        level = scene_object.GetComponent<Level>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        coins_left = level.coins;        
+        if(!condition_met)
+        condition_met = level.complete;        
     }
 
     public void OnTriggerEnter2D(Collider2D col)
     {
-        if(coins_left == null)
+        if(condition_met == null)
         {
-            Debug.Log("Coins left is null");
+            Debug.Log("Error has occured, completed is null");
         }
-        if (coins_left == 0)
+        if (condition_met == true)
         {
-            Debug.Log("Entered Door");
-            SceneManager.LoadScene("test_level2");
+            Debug.Log($"Objective Completed: transfering to scene: {next_screen}");
+            SceneManager.LoadScene(next_screen);
         }
         else
         {
-            Debug.Log($"{coins_left} coins left");
+            Debug.Log("Objective not yet completed!");
         }
         
     }

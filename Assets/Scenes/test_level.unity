@@ -509,7 +509,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 469012793}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 917206901d89a3a47bb552bd7f640b70, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b3aafcced668104ebadc20e908a195d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   level: {fileID: 0}
@@ -812,7 +812,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 551857510}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.12, y: 0.78, z: 0}
+  m_LocalPosition: {x: -3.15, y: -1.11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 799585649}
@@ -1086,7 +1086,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5ab3b36d34383746bfadb4a4ca3c547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player_number: 2
 --- !u!58 &799585651
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1385,6 +1384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce840ec78e42b3d4d94b0759fe957f20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  complete: 0
   coins: 1
 --- !u!1 &1824543307
 GameObject:
@@ -1587,7 +1587,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5ab3b36d34383746bfadb4a4ca3c547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player_number: 1
 --- !u!1 &2112992102
 GameObject:
   m_ObjectHideFlags: 0
@@ -1710,7 +1709,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: {fileID: 0}
   scene_object: {fileID: 0}
-  coins_left: 0
+  condition_met: 0
+  next_screen: test_level2
 --- !u!1 &2122110719
 GameObject:
   m_ObjectHideFlags: 0

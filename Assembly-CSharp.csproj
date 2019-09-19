@@ -56,13 +56,15 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\CharacterController2D.cs" />
-     <Compile Include="Assets\Scripts\Collected.cs" />
      <Compile Include="Assets\Scripts\DoorCheck.cs" />
      <Compile Include="Assets\Scripts\GroundCheck.cs" />
+     <Compile Include="Assets\Scripts\Level.cs" />
+     <Compile Include="Assets\Scripts\Levels\PlayerSelect\PlayerSelect.cs" />
+     <Compile Include="Assets\Scripts\Levels\Test\Coin.cs" />
+     <Compile Include="Assets\Scripts\Levels\Test\TestLevel.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\PlayerxControl.cs" />
      <Compile Include="Assets\Scripts\StartScreen.cs" />
-     <Compile Include="Assets\Scripts\test_level.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>D:/Projects/Tower Proto/Tower_proto/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
