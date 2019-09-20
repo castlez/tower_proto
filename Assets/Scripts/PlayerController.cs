@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour
 
     public float damage;
 
+    public Color color;
+
 
 
     void PlayerInit()
@@ -87,6 +89,10 @@ public class PlayerController : MonoBehaviour
         player = GameObject.Find("guy" + player_number);
         rb = player.GetComponent<Rigidbody2D>();
         anim = player.GetComponent<Animator>();
+
+        Color c = new Color(60/100f, 60/100f, 1, 1);  
+        player.GetComponent<SpriteRenderer>().color = c;
+        //player.GetComponent<SpriteRenderer>().material.SetFloat("_Strength", 0.0001f);
 
         PlayerInit(); 
     }
