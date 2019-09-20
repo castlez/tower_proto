@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\OnHit.cs" />
      <Compile Include="Assets\Scripts\CharacterController2D.cs" />
      <Compile Include="Assets\Scripts\DoorCheck.cs" />
      <Compile Include="Assets\Scripts\GroundCheck.cs" />
@@ -63,6 +64,7 @@
      <Compile Include="Assets\Scripts\Levels\Test\Coin.cs" />
      <Compile Include="Assets\Scripts\Levels\Test\TestLevel.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\PlayerScripts\PlayerState.cs" />
      <Compile Include="Assets\Scripts\PlayerxControl.cs" />
      <Compile Include="Assets\Scripts\StartScreen.cs" />
  <Reference Include="Unity.Timeline.Editor">

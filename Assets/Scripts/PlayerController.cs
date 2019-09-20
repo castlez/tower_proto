@@ -6,13 +6,8 @@ using System;
 using System.Reflection;
 public class PlayerController : MonoBehaviour
 {
-
-    PlayerxControl controls;
-
     public GameObject player;
     public CharacterController2D controller;
-
-    float horizontalMove = 0f;
 
     public float runSpeed = 0.8f;
 
@@ -20,8 +15,6 @@ public class PlayerController : MonoBehaviour
     public bool last_grounded = true;
 
     bool jumping = false;
-
-    float jumpSpeed = 40f;
 
     bool dodging = false;
 
@@ -37,9 +30,22 @@ public class PlayerController : MonoBehaviour
 
     float lasty=1;
 
-    public int scene = 0;
-
     public int player_number = 1;
+
+    // attacking
+    private float timeBtwAttack;
+
+    public float startTimeBtwAttack;
+
+    public Transform attackPos;
+
+    public LayerMask whatIsEnemies;
+
+    public float attackRange;
+
+    public float damage;
+
+
 
     void PlayerInit()
     {
@@ -134,6 +140,45 @@ public class PlayerController : MonoBehaviour
         lasty = movey;
         controller.Move(movex, false, jumping);
         anim.SetFloat("horizontalMove", Mathf.Abs(movex));
+
+        // process attacks
+        if(timeBtwAttack <= 0)
+        {
+            if(Input.GetAxis("Attack_" + player_number) == 1)
+            {
+                Debug.Log("Trying to hit...");
+                anim.Play("attack");
+                Collider2D [] enemiesToHit = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
+                for(int i = 0; i < enemiesToHit.Length; i++)
+                {
+                    Vector2 direction_hit = new Vector2(lastx, 0);
+                    Debug.Log("HIT");
+                    try
+                    {
+                        PlayerController p = enemiesToHit[i].GetComponent<PlayerController>();
+                        if(p != this)
+                        {
+                            p.GetHit(direction_hit, 30f);    
+                        }
+                    }
+                    catch(NullReferenceException e)
+                    {
+                        Debug.Log("failed to hit");
+                    }
+                    
+                }
+            }
+            timeBtwAttack = startTimeBtwAttack;
+        }
+        else{
+            timeBtwAttack -= Time.deltaTime;
+        }
+    }
+
+    void OnDrawGizmoSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPos.position, attackRange);
     }
 
     void FixedUpdate()
@@ -142,6 +187,11 @@ public class PlayerController : MonoBehaviour
             last_grounded = grounded;
         }    
         
+    }
+
+    public void GetHit(Vector2 direction, float force)
+    {
+        rb.AddForce(direction*force);
     }
 
     void OnEnable()
